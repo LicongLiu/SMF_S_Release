@@ -7,39 +7,6 @@
     SMFS - A new shape model fitting based phenology detection method.
     Please cite: Detecting crop phenology from vegetation index time-series data by improved
     shape model fitting in each phenological stage.
-
-Explanation for manual-search used in the method:
-
-Experienced users may wonder why we use manual-search to find the parameters optimization. In fact, we have tried
-various automatic multi-parameter optimization algorithms in Python. However, we found that the effect is not as
-good as our manual-search method.
-
-The first reason is that these methods tend to fall into local optima. This is particularly common in the original
-approach of SMF. In the original SMF method, the xscale parameter is easier to change the RMSE between the reference
-and target than the tshift parameter. This causes that the SMF method  more inclined to optimize the xscale parameter
-optimization process. And then fall into the local optimum of xscale and fail to optimize tshift. In the SMFS method,
-we reduce the correlation between the xscale parameter and the tshift parameter, which alleviates this problem.
-However, in practice, when using the automatic optimization algorithm, the situation of falling into a local
-optimum still occasional occurs.
-
-Another counter-intuitive and more important reason is that the speed of these optimization algorithms is even
-much slower than that of our manual-searched algorithms. Because our phenology detection does not need to pursue
-such high precision in parameter search. But these optimization algorithms always spend a lot of time deciding
-whether this phenological period is 98.45 days or 98.46 days. Of course, some algorithms provide the method to
-jump out of the optimization by controlling the termination condition, for example, the minimum threshold for
-the change of Loss gradient. However, whether it is the LOSS of the correlation coefficient or the LOSS of the
-RMSE, they are indirect indicators for phenology. It is difficult for us to measure to what extent the correlation
-coefficient is optimized to ensure that the error of phenology is within acceptable level. Maybe 0.99 will garantine
-a fair phenology accuracy, maybe 0.999 will do. The number depends on the shape of the specific optimization target
-curve and the curve smoothness. Therefore, in the automated method, it is difficult for us to accurately balance the
-efficient and accuracy.
-
-Therefore, in the SMFS method, we finally use the manual-search method for optimization. But we also know that
-manual-search is not a final solution for this problem. When manual-search, in order to balance the efficiency and
-accuracy of the algorithm, we use a few parameters to strictly control the process of parameter optimization.
-These operations actually lack algorithmic aesthetics. I believe that in the field of optimization, there must be
-more suitable methods to help us complete the parameter optimization. We will continue to research and update the
-code constantly. Looking forward to giving better and beautiful solutions in the future.
 '''
 
 
@@ -184,6 +151,19 @@ class SMFS:
 
     def tshift_search(self, tshift, xscale, tar_ts):
         '''
+
+        The explanation for manual search used in the method:
+
+        Experienced users may wonder why we use manual search to find the parameters optimization. We have tried various automatic multi-parameter optimization algorithms in Python. However, we found that the effect is not as good as our manual-search method.
+
+        The first reason is that these methods tend to fall into local optima. The problem is prevalent in the original approach of SMF. In the original SMF method, the xscale parameter is easier to change the RMSE between the reference and target than the tshift parameter. Thus the SMF method is more inclined to optimize the xscale parameter optimization process. And then fall into the local optimum of xscale and fail to optimize tshift. In the SMFS method, we reduce the correlation between the xscale parameter and the tshift parameter, which alleviates this problem. However, in practice, when using the automatic optimization algorithm, the situation of falling into a local optimum still occasionally occurs.
+
+        Another counter-intuitive and more important reason is that the speed of these optimization algorithms is even much slower than that of our manual-searched algorithms. Because our phenology detection does not need to pursue high precision in parameter search, these optimization algorithms always spend much time deciding whether this phenological period is 98.45 days or 98.46 days. Of course, some algorithms provide the method to jump out of the optimization by controlling the termination condition, for example, the minimum threshold for the change of Loss gradient. However, whether it is the LOSS of the correlation coefficient or the LOSS of the RMSE, they are indirect indicators for phenology. It is difficult for us to measure to what extent the correlation coefficient is optimized to ensure that the error of phenology is within the acceptable level. Maybe 0.99 will guarantee a fair phenology accuracy. Maybe 0.999 will do. The number depends on the shape of the specific optimization target curve and the curve smoothness. Therefore, it is difficult for us to balance the automated method's efficiency and accuracy.
+
+        Therefore, in the SMFS method, we finally use the manual-search method for optimization. However, we also know that manual search is not a final solution for this problem. When manual-search, to balance the efficiency and accuracy of the algorithm, we use a few parameters to control the parameter optimization process. We believe that there must be more suitable methods to help us complete the parameter optimization. We will continue to research and update the code constantly.
+
+        We are looking forward to giving better and more beautiful solutions in the future.
+
         :param tshift: tshift is the time shift factor. Please refer to eq.7 in paper.
         :param xscale: xscale is the scaling factors in the time dimensions. Please refer to eq.7 in paper.
         :param tar_ts: Target vegetation index time series for phenology monitor.
