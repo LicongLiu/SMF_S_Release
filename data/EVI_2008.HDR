@@ -1,0 +1,17 @@
+ENVI
+description = {
+  Create New File Result [Wed Apr 27 20:16:34 2022]}
+samples = 400
+lines   = 400
+bands   = 46
+header offset = 0
+file type = ENVI Standard
+data type = 2
+interleave = bsq
+sensor type = Unknown
+byte order = 0
+x start = 0
+y start = 0
+map info = {Geographic Lat/Lon, 1.0000, 1.0000, 113.69166666, 35.40833333, 4.1666666663e-003, 4.1666666663e-003, WGS-84, units=Degrees}
+coordinate system string = {GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]]}
+wavelength units = Unknown

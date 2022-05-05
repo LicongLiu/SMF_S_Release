@@ -1,0 +1,1 @@
+Please run the example/SMF_S_Winter_Wheat_Demo.ipynb to familiarize the use of SMFS
