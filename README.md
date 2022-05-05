@@ -1,2 +1,2 @@
 # SMF_S_Release
-A novel vegetation index time-series-based phenology detection method.
+Detecting crop phenology from vegetation index time-series data by improved shape model fitting in each phenological stage.
